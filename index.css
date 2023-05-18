@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding:  0;
+    box-sizing: border-box;
+}
+main{
+    width: 100%;
+    background-color: #ebebeb;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    text-align: center;
+}
+
+main .overlay{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ebebeb;
+    z-index: 100;
+    position: absolute;
+    visibility: hidden;
+    transition: all .3s ease;
+}
+
+main .overlay .formulario{
+    width: 30%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #949e8f;
+}
+
+main .overlay .formulario label input{
+    height: 2em;
+    padding: .5em;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+main .overlay .formulario label input:first-of-type,
+main .formulario button:first-of-type{
+    margin-bottom: .5em;
+}
+
+main .overlay .formulario button{
+    width: 10em;
+    height: 2.5em;
+    border-radius: 15px;
+    border: 1px solid #949e8f;
+    outline: none;
+    background-color: #ebebeb;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+main .overlay .formulario button:hover{
+    border: 1px solid rgb(75, 108, 71);
+    background-color: rgb(101, 136, 96);
+    color: #fff;
+}
+
+main .lista{
+    grid-column: 1/2;
+    grid-row: 1/3;
+    padding: 1.5em;
+}
+
+main .lista .contenedor-registro .contenedor-lista-personas{
+    padding: 1.5em;
+}
+
+main .lista .contenedor-registro .contenedor-lista-personas h2,
+main .lista .contenedor-registro .contenedor-roles h2,
+main .acciones h2,
+main .overlay .formulario h2{
+    padding-bottom: .5em;
+}
+
+main .lista h1,
+main .contenedor-resultado h2{
+    padding-bottom: .5em;
+}
+
+main .contenedor-resultado{
+    grid-column: 2/3;
+    grid-row: 1/3;
+    padding: 1.5em;
+}
+
+main .contenedor-resultado .resultado .item-respuesta{
+    padding: .5em;
+    border-bottom: 1px solid #000;
+}
+
+main .acciones{
+    grid-column: 1/3;
+    grid-row: 3/4;
+    padding: 1.5em;
+}
+
+main .acciones button{
+    width: 10em;
+    height: 2.5em;
+    border-radius: 15px;
+    border: 1px solid #949e8f;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+main .acciones button:hover{
+    border: 1px solid rgb(75, 108, 71);
+    background-color: rgb(101, 136, 96);
+    color: #fff;
+}

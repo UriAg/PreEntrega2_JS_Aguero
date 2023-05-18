@@ -4,32 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
     <title>Document</title>
 </head>
 <body>
     <main>
-        <div>
+        <div class="overlay">
+            <div class="formulario">
+                <h2>Añadir registro</h2>
+                <label>
+                    <input type="text" class="input-nombre" placeholder="Nombre completo">
+                </label>
+                <label>
+                    <input type="text" class="input-rol" placeholder="Rol">
+                </label>
+                <button type="button" class="completar-formulario">Enviar</button>
+                <button type="button" class="cancelar-formulario">Cerrar</button>
+            </div>
+        </div>
+        <div class="lista">
             <h1>Listado de personas</h1>
-            <div>
-                <div>
+            <div class="contenedor-registro">
+                <div class="contenedor-lista-personas">
                     <h2>Nombres</h2>
                     <div class="lista-personas"></div>
                 </div>
-                <div>
+                <div class="contenedor-roles">
                     <h2>Roles</h2>
-                    <p>Cliente</p>
-                    <p>Empleado</p>
-                    <p>Jefe</p>
+                    <div class="lista-roles"></div>
                 </div>
             </div>
-            <div>
-                <h2>Acciones</h2>
-                <button type="button" class="b-n">Buscar por nombre</button>
-                <button type="button" class="b-c">Buscar por rol</button>
-            </div>
+        </div>
+        <div class="contenedor-resultado">
+            <h2>Resultados</h2>
             <div class="resultado"></div>
+        </div>
+        <div class="acciones">
+            <h2>Acciones</h2>
+            <button type="button" class="b-n">Buscar por nombre</button>
+            <button type="button" class="b-c">Buscar por rol</button>
+            <button type="button" class="b-a">Agregar registro</button>
         </div>
     </main>
     <script src="./app/index.js"></script>
+    <script src="./app/agregar-registro.js"></script>
 </body>
 </html>
