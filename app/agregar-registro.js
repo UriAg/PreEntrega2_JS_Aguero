@@ -5,34 +5,26 @@ const inputNombre = document.querySelector('.input-nombre');
 const inputRol = document.querySelector('.input-rol');
 const overlay = document.querySelector('.overlay');
 
-
 //Abrir formulario
 botonAbrir.addEventListener('click', function(){
     overlay.style.visibility = 'visible';
     overlay.style.opacity = '1';
-    inputNombre.value = '';
     inputNombre.style.border = 'none';
-    inputRol.value = '';
     inputRol.style.border = 'none';
 });
-
-
 
 //Cerrar formulario
 botonCerrar.addEventListener('click', function(){
     overlay.style.visibility = 'hidden';
     overlay.style.opacity = '0';
-    inputNombre.value = '';
+    inputNombre.value = "";
     inputNombre.style.border = 'none';
-    inputRol.value = '';
+    inputRol.value = "";
     inputRol.style.border = 'none';
 });
 
-let Vnom;
-let Vrol;
-
 //Hacer registro con enter, es re croto hacerlo asi pero no tengo tiempo para buscar la forma :(
-window.addEventListener('keypress', function(e) {
+document.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         botonAgregar.click();
     }  
@@ -40,10 +32,13 @@ window.addEventListener('keypress', function(e) {
     
 botonAgregar.addEventListener('click', (e)=>{
     //Validación de campo
+    let Vnom;
+    let Vrol;
     if(!inputNombre.value){
         inputNombre.style.border = '1px solid red';
     }else{
         Vnom = inputNombre.value
+        
     }
 
     if(!inputRol.value){
@@ -51,6 +46,7 @@ botonAgregar.addEventListener('click', (e)=>{
     }else{
         Vrol = inputRol.value
         if(!JSON.parse(localStorage.getItem('roles')).find((e)=> e.toLowerCase() === Vrol.toLocaleLowerCase())){
+            
             let roles = JSON.parse(localStorage.getItem('roles'));
             roles.push(Vrol);
             localStorage.setItem('roles', JSON.stringify(roles));
@@ -68,6 +64,7 @@ botonAgregar.addEventListener('click', (e)=>{
 
     let today = new Date();
     if(Vnom && Vrol){
+        console.log(Vrol + " " + Vnom)
         //Agregar el registro
         let lista = JSON.parse(localStorage.getItem('lista'));
         let cantidadIDs = lista.length;
@@ -85,12 +82,7 @@ botonAgregar.addEventListener('click', (e)=>{
         lista.push(registro);
         localStorage.setItem('lista', JSON.stringify(lista));
 
-        overlay.style.visibility = 'hidden';
-        overlay.style.opacity = '0';
-        inputNombre.value = '';
-        inputNombre.style.border = 'none';
-        inputRol.value = '';
-        inputRol.style.border = 'none';
+        botonCerrar.click();
 
         //Actualizar lista visible
         container.innerHTML = '';
