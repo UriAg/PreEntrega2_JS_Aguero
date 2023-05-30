@@ -25,7 +25,7 @@ const persona4 = {
 }
 const persona5 = {
     id: 3,
-    nombre: 'Andrés Trozado',
+    nombre: 'Andres Trozado',
     rol: 'Cliente',
     fecha_reg: '10/08/2000'
 }
@@ -75,48 +75,107 @@ JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
 const btnNombre = document.querySelector('.b-n');
 const btnCategoria = document.querySelector('.b-c');
 const resultado = document.querySelector('.resultado')
+const overlayBuscador = document.querySelector('.overlay-buscador');
+const tituloBuscador = document.querySelector('.titulo-buscador');
+const inputBuscador = document.querySelector('.input-buscador');
+const botonBuscador = document.querySelector('.boton-buscador');
+const cerrarBuscador = document.querySelector('.boton-cerrar-buscador');
 
 //Busqueda por nombre
 btnNombre.addEventListener('click', (e)=>{
+    inputBuscador.value = '';
+    tituloBuscador.innerText = 'Buscar por nombre';
+    overlayBuscador.style.visibility = 'visible';
+    overlayBuscador.style.opacity = '1';
+    inputBuscador.style.border = 'none';
 
-    let EntradaNombre = prompt('Ingresar nombre');
-
-    if(EntradaNombre != null || EntradaNombre != undefined){
-        let InfoRequerida = JSON.parse(localStorage.getItem('lista')).find((e)=> e.nombre.toLowerCase() === EntradaNombre.toLocaleLowerCase());
-        resultado.innerHTML = `
-        Nombre: <b>${InfoRequerida.nombre}</b><br>
-        ID: ${InfoRequerida.id}<br>
-        Rol: ${InfoRequerida.rol}<br>
-        Fecha de registro: ${InfoRequerida.fecha_reg}
-        `
-    }else{
-        alert('Operación cancelada')
-    }
+    botonBuscador.addEventListener('click', ()=>{
+        if(inputBuscador.value){
+            let InfoRequerida = JSON.parse(localStorage.getItem('lista')).find((e)=> e.nombre.toLowerCase() === inputBuscador.value.toLocaleLowerCase());
+            if(InfoRequerida){
+                resultado.innerHTML = `
+                Nombre: <b>${InfoRequerida.nombre}</b><br>
+                ID: ${InfoRequerida.id}<br>
+                Rol: ${InfoRequerida.rol}<br>
+                Fecha de registro: ${InfoRequerida.fecha_reg}
+                `
+                overlayBuscador.style.visibility = 'hidden';
+                overlayBuscador.style.opacity = '0';
+                inputBuscador.style.border = 'none';
+                
+            }else{
+                inputBuscador.style.border = '1px solid red';
+                setInterval(() => {
+                    inputBuscador.style.border = 'none';
+                }, 1500);
+            }
+        }else{
+            inputBuscador.style.border = '1px solid blue';
+            setInterval(() => {
+                inputBuscador.style.border = 'none';
+            }, 1500);
+        }
+        
+    });
 
 });
 
 //Filtrado por Rol
+
 btnCategoria.addEventListener('click', (e)=>{
+    inputBuscador.value = '';
+    tituloBuscador.innerText = 'Buscar por categoría';
+    overlayBuscador.style.visibility = 'visible';
+    overlayBuscador.style.opacity = '1';
+    inputBuscador.style.border = 'none';
 
-    let EntradaRol = prompt('Ingresar rol');
+    botonBuscador.addEventListener('click', ()=>{
+        if(inputBuscador.value){
+            let InfoRequerida2 = JSON.parse(localStorage.getItem('lista')).filter((e)=> e.rol.toLowerCase() === inputBuscador.value.toLocaleLowerCase());
+            if(InfoRequerida2.length){
+                resultado.innerHTML = "";
+                InfoRequerida2.map(persona =>{
+                    let InfoPersona = document.createElement('div');
+                    InfoPersona.classList.add('item-respuesta');
+                    InfoPersona.innerHTML = `
+                    Nombre: ${persona.nombre}<br>
+                    ID: ${persona.id}<br>
+                    Rol: <b>${persona.rol}</b><br>
+                    Fecha de registro: ${persona.fecha_reg}
+                    `;
+                    resultado.appendChild(InfoPersona);
+                });
+                overlayBuscador.style.visibility = 'hidden';
+                overlayBuscador.style.opacity = '0';
+                inputBuscador.style.border = 'none';
+                
+            }else{
+                inputBuscador.style.border = '1px solid red';
+                setInterval(() => {
+                    inputBuscador.style.border = 'none';
+                }, 1500);
+            }
+        }else{
+            inputBuscador.style.border = '1px solid blue';
+            setInterval(() => {
+                inputBuscador.style.border = 'none';
+            }, 1500);
+        }
+        
+    });
 
-    if(EntradaRol != null || EntradaRol != undefined){
+});
 
-        let InfoRequerida = JSON.parse(localStorage.getItem('lista')).filter((e)=> e.rol.toLowerCase() === EntradaRol.toLocaleLowerCase());
-        resultado.innerHTML = "";
-        InfoRequerida.map(persona =>{
-            let InfoPersona = document.createElement('div');
-            InfoPersona.classList.add('item-respuesta');
-            InfoPersona.innerHTML = `
-            Nombre: ${persona.nombre}<br>
-            ID: ${persona.id}<br>
-            Rol: <b>${persona.rol}</b><br>
-            Fecha de registro: ${persona.fecha_reg}
-            `;
-            resultado.appendChild(InfoPersona);
-        });
+//Cerrar busqueda
+cerrarBuscador.addEventListener('click', ()=>{
+    overlayBuscador.style.visibility = 'hidden';
+    overlayBuscador.style.opacity = '0';
+    inputBuscador.value = "";
+    inputBuscador.style.border = 'none';
+});
 
-    }else{
-        alert('Operación cancelada')
-    }
+document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        botonBuscador.click();
+    }  
 });

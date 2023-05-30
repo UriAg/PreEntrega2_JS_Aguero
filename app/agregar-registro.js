@@ -64,7 +64,6 @@ botonAgregar.addEventListener('click', (e)=>{
 
     let today = new Date();
     if(Vnom && Vrol){
-        console.log(Vrol + " " + Vnom)
         //Agregar el registro
         let lista = JSON.parse(localStorage.getItem('lista'));
         let cantidadIDs = lista.length;
