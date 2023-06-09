@@ -9,6 +9,22 @@ fetch('./app/lista.json')
 .then((res)=> res.json())
 .then((data)=>{
     localStorage.setItem('lista', JSON.stringify(data));
+
+    //Mostrando personas
+    JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = persona.nombre;
+        container.appendChild(InfoPersona);
+    });
+
+    //Mostrando roles
+    JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = rol;
+        containerRoles.appendChild(InfoPersona);
+    });
 })
 .catch((err)=>{
     container.innerHTML = `
@@ -29,26 +45,6 @@ fetch('./app/lista.json')
 
 const roles = ["Jefe", "Empleado", "Cliente"];
 localStorage.setItem('roles', JSON.stringify(roles));
-
-//Mostrando personas
-if(localStorage.getItem('lista')){
-    JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
-        let InfoPersona = document.createElement('div');
-        InfoPersona.classList.add('item');
-        InfoPersona.textContent = persona.nombre;
-        container.appendChild(InfoPersona);
-    });
-}
-
-//Mostrando roles
-if(localStorage.getItem('roles')){
-    JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
-        let InfoPersona = document.createElement('div');
-        InfoPersona.classList.add('item');
-        InfoPersona.textContent = rol;
-        containerRoles.appendChild(InfoPersona);
-    });
-}
 
 //Accion de botones
 const resultado = document.querySelector('.resultado')
