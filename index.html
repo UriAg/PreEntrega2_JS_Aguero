@@ -4,58 +4,82 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./index.css">
     <title>Document</title>
 </head>
 <body>
     <main>
-        <div class="overlay">
-            <div class="formulario">
-                <h2>Añadir registro</h2>
-                <label>
-                    <input type="text" class="input-nombre" placeholder="Nombre completo">
-                </label>
-                <label>
-                    <input type="text" class="input-rol" placeholder="Rol">
-                </label>
-                <button type="button" class="completar-formulario">Enviar</button>
-                <button type="button" class="cancelar-formulario">Cerrar</button>
-            </div>
-        </div>
-        <div class="overlay-buscador">
-            <div class="formulario-buscador">
-                <h2 class="titulo-buscador">Buscador</h2>
-                <label>
-                    <input type="text" class="input-buscador" placeholder="Buscar">
-                </label>
-                <button type="button" class="boton-buscador">Buscar</button>
-                <button type="button" class="boton-cerrar-buscador">Cerrar</button>
-            </div>
-        </div>
-        <div class="lista">
-            <h1>Listado de personas</h1>
-            <div class="contenedor-registro">
-                <div class="contenedor-lista-personas">
-                    <h2>Nombres</h2>
-                    <div class="lista-personas"></div>
-                </div>
-                <div class="contenedor-roles">
-                    <h2>Roles</h2>
-                    <div class="lista-roles"></div>
+        <div class="modal fade modal-add" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir registro</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>
+                            <input type="text" class="input-nombre" placeholder="Nombre completo">
+                        </label>
+                        <label>
+                            <input type="text" class="input-rol" placeholder="Rol">
+                        </label>
+                        <button type="button" class="completar-formulario">Enviar</button>
+                        <button type="button" class="cancelar-formulario" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="contenedor-resultado">
-            <h2>Resultados</h2>
-            <div class="resultado"></div>
+
+        <div class="modal fade modal-role" id="roleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 titulo-buscador" id="exampleModalLabel">Buscador</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>
+                            <input type="text" class="input-buscador" placeholder="Buscar">
+                        </label>
+                        <button type="button" class="boton-buscador">Buscar</button>
+                        <button type="button" class="boton-cerrar-buscador" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="lista">
+                <h1>Listado de personas</h1>
+                <div class="contenedor-registro">
+                    <div class="contenedor-lista-personas">
+                        <h2>Nombres</h2>
+                        <div class="lista-personas"></div>
+                    </div>
+                    <div class="contenedor-roles">
+                        <h2>Roles</h2>
+                        <div class="lista-roles"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="contenedor-resultado">
+                <h2>Resultados</h2>
+                <div class="resultado"></div>
+            </div>
         </div>
         <div class="acciones">
             <h2>Acciones</h2>
-            <button type="button" class="b-n">Buscar por nombre</button>
-            <button type="button" class="b-c">Buscar por rol</button>
-            <button type="button" class="b-a">Agregar registro</button>
+            <button type="button" class="b-n able" data-bs-toggle="modal" data-bs-target="#roleModal">Buscar por nombre</button>
+            <button type="button" class="b-c able" data-bs-toggle="modal" data-bs-target="#roleModal">Buscar por rol</button>
+            <button type="button" class="b-a able" data-bs-toggle="modal" data-bs-target="#addModal">Agregar registro</button>
         </div>
     </main>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="./app/index.js"></script>
     <script src="./app/agregar-registro.js"></script>
 </body>

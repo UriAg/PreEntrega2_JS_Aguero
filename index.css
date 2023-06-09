@@ -6,36 +6,20 @@
 main{
     width: 100%;
     background-color: #ebebeb;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
 
-main .overlay{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ebebeb;
-    z-index: 100;
-    position: absolute;
-    visibility: hidden;
-    transition: all .3s ease;
-}
-
-main .overlay .formulario{
-    width: 30%;
-    height: 30%;
+main .modal-add .modal-dialog .modal-content .modal-body{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #949e8f;
+    background-color: #ebebeb;
 }
 
-main .overlay .formulario label input{
+main .modal-add .modal-dialog .modal-content .modal-body label input{
     height: 2em;
     padding: .5em;
     border-radius: 5px;
@@ -43,12 +27,12 @@ main .overlay .formulario label input{
     border: none;
 }
 
-main .overlay .formulario label input:first-of-type,
-main .overlay .formulario button:first-of-type{
+main .modal-add .modal-dialog .modal-content .modal-body label input:first-of-type,
+main .modal-add .modal-dialog .modal-content .modal-body button:first-of-type{
     margin-bottom: .5em;
 }
 
-main .overlay .formulario button{
+main .modal-add .modal-dialog .modal-content .modal-body button{
     width: 10em;
     height: 2.5em;
     border-radius: 15px;
@@ -59,36 +43,21 @@ main .overlay .formulario button{
     transition: all .3s ease;
 }
 
-main .overlay .formulario button:hover{
+main .modal-add .modal-dialog .modal-content .modal-body button:hover{
     border: 1px solid rgb(75, 108, 71);
     background-color: rgb(101, 136, 96);
     color: #fff;
 }
 
-main .overlay-buscador{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ebebeb;
-    z-index: 100;
-    position: absolute;
-    visibility: hidden;
-    transition: all .3s ease;
-}
-
-main .overlay-buscador .formulario-buscador{
-    width: 30%;
-    height: 30%;
+main .modal-role .modal-dialog .modal-content .modal-body{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #949e8f;
+    background-color: #ebebeb;
 }
 
-main .overlay-buscador .formulario-buscador label input{
+main .modal-role .modal-dialog .modal-content .modal-body label input{
     height: 2em;
     padding: .5em;
     border-radius: 5px;
@@ -96,12 +65,12 @@ main .overlay-buscador .formulario-buscador label input{
     border: none;
 }
 
-main .overlay-buscador .formulario-buscador label input:first-of-type,
-main .overlay-buscador .formulario-buscador button:first-of-type{
+main .modal-role .modal-dialog .modal-content .modal-body label input:first-of-type,
+main .modal-role .modal-dialog .modal-content .modal-body button:first-of-type{
     margin-bottom: .5em;
 }
 
-main .overlay-buscador .formulario-buscador button{
+main .modal-role .modal-dialog .modal-content .modal-body button{
     width: 10em;
     height: 2.5em;
     border-radius: 15px;
@@ -112,52 +81,54 @@ main .overlay-buscador .formulario-buscador button{
     transition: all .3s ease;
 }
 
-main .overlay-buscador .formulario-buscador button:hover{
+main .modal-role .modal-dialog .modal-content .modal-body button:hover{
     border: 1px solid rgb(75, 108, 71);
     background-color: rgb(101, 136, 96);
     color: #fff;
 }
 
-main .lista{
-    grid-column: 1/2;
-    grid-row: 1/3;
+main .info{
+    display: flex;
+}
+
+main .info .lista{
+    width: 50%;
+    height: 75%;
     padding: 1.5em;
 }
 
-main .lista .contenedor-registro .contenedor-lista-personas{
+main .info .lista .contenedor-registro .contenedor-lista-personas{
     padding: 1.5em;
 }
 
-main .lista .contenedor-registro .contenedor-lista-personas h2,
-main .lista .contenedor-registro .contenedor-roles h2,
-main .acciones h2,
-main .overlay .formulario h2{
-    padding-bottom: .5em;
+main .info .lista .contenedor-registro .contenedor-lista-personas .lista-personas h3{
+    font-size: 1.5em;
+    color: #8f3838;
 }
 
-main .lista h1,
-main .contenedor-resultado h2{
-    padding-bottom: .5em;
+main .info .lista .contenedor-registro .contenedor-roles .lista-roles h3{
+    font-size: 1.5em;
+    color: #8f3838;
 }
 
-main .contenedor-resultado{
-    grid-column: 2/3;
-    grid-row: 1/3;
+main .info .contenedor-resultado{
+    width: 50%;
+    height: 75%;
     padding: 1.5em;
 }
 
-main .contenedor-resultado .resultado .item-respuesta{
+main .info .contenedor-resultado .resultado .item-respuesta{
     padding: .5em;
     border-bottom: 1px solid #000;
 }
 
 main .acciones{
-    grid-column: 1/3;
-    grid-row: 3/4;
+    width: 100%;
+    height: 25%;
     padding: 1.5em;
 }
 
-main .acciones button{
+main .acciones .able{
     width: 10em;
     height: 2.5em;
     border-radius: 15px;
@@ -167,7 +138,18 @@ main .acciones button{
     cursor: pointer;
     transition: all .3s ease;
 }
-main .acciones button:hover{
+
+main .acciones .disabled-btn{
+    width: 10em;
+    height: 2.5em;
+    border-radius: 15px;
+    border: 1px solid #949e8f;
+    outline: none;
+    background: none;
+    cursor: not-allowed;
+}
+
+main .acciones .able:hover{
     border: 1px solid rgb(75, 108, 71);
     background-color: rgb(101, 136, 96);
     color: #fff;

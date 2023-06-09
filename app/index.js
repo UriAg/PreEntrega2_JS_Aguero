@@ -1,81 +1,57 @@
-//Simulación de base de datos
-const persona1 = {
-    id: 2,
-    nombre: 'Aitor Tilla',
-    rol: 'Cliente',
-    fecha_reg: '10/08/2000'
-}
-const persona2 = {
-    id: 8,
-    nombre: 'Alba Sura',
-    rol: 'Cliente',
-    fecha_reg: '10/08/2000'
-}
-const persona3 = {
-    id: 5,
-    nombre: 'Alex Cremento',
-    rol: 'Empleado',
-    fecha_reg: '02/05/1995'
-}
-const persona4 = {
-    id: 4,
-    nombre: 'Ana Busado de Hesa',
-    rol: 'Empleado',
-    fecha_reg: '02/05/1995'
-}
-const persona5 = {
-    id: 3,
-    nombre: 'Andres Trozado',
-    rol: 'Cliente',
-    fecha_reg: '10/08/2000'
-}
-const persona6 = {
-    id: 6,
-    nombre: 'Armando Bronca Segura',
-    rol: 'Empleado',
-    fecha_reg: '02/05/1995'
-}
-const persona7 = {
-    id: 7,
-    nombre: 'Dolores Delano',
-    rol: 'Cliente',
-    fecha_reg: '10/08/2000'
-}
-const persona8 = {
-    id: 1,
-    nombre: 'Elba Surero',
-    rol: 'Jefe',
-    fecha_reg: '02/05/1995'
-}
-const personas = [persona1, persona2, persona3, persona4, persona5, persona6, persona7, persona8];
-const roles = ["Jefe", "Empleado", "Cliente"];
+const container = document.querySelector('.lista-personas');
+const containerRoles = document.querySelector('.lista-roles');
+const addBtn = document.querySelector('.b-a');
+const btnNombre = document.querySelector('.b-n');
+const btnCategoria = document.querySelector('.b-c');
+//Registro JSON local
 //La almaceno en el localStorage
-localStorage.setItem('lista', JSON.stringify(personas));
+fetch('./app/lista.json')
+.then((res)=> res.json())
+.then((data)=>{
+    localStorage.setItem('lista', JSON.stringify(data));
+})
+.catch((err)=>{
+    container.innerHTML = `
+        <h3 class="err-msg">Hubo un problema al cargar los registros</h3>
+    `;
+    containerRoles.innerHTML = `
+        <h3 class="err-msg">Hubo un problema al cargar los registros</h3>
+    `;
+    function changeStyle(b){
+        b.disabled = true;
+        b.classList.remove('able');
+        b.classList.add('disabled-btn');
+    }
+    changeStyle(addBtn);
+    changeStyle(btnNombre);
+    changeStyle(btnCategoria);
+})
+
+const roles = ["Jefe", "Empleado", "Cliente"];
 localStorage.setItem('roles', JSON.stringify(roles));
 
 //Mostrando personas
-const container = document.querySelector('.lista-personas');
-JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
-    let InfoPersona = document.createElement('div');
-    InfoPersona.classList.add('item');
-    InfoPersona.textContent = persona.nombre;
-    container.appendChild(InfoPersona);
-});
+if(localStorage.getItem('lista')){
+    JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = persona.nombre;
+        container.appendChild(InfoPersona);
+    });
+}
 
 //Mostrando roles
-const containerRoles = document.querySelector('.lista-roles');
-JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
-    let InfoPersona = document.createElement('div');
-    InfoPersona.classList.add('item');
-    InfoPersona.textContent = rol;
-    containerRoles.appendChild(InfoPersona);
-});
+if(localStorage.getItem('roles')){
+    JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = rol;
+        containerRoles.appendChild(InfoPersona);
+    });
+}
 
 //Accion de botones
-const btnNombre = document.querySelector('.b-n');
-const btnCategoria = document.querySelector('.b-c');
 const resultado = document.querySelector('.resultado')
-const overlayBuscador = document.querySelector('.overlay-buscador');
 const tituloBuscador = document.querySelector('.titulo-buscador');
 const inputBuscador = document.querySelector('.input-buscador');
 const botonBuscador = document.querySelector('.boton-buscador');
@@ -85,8 +61,6 @@ const cerrarBuscador = document.querySelector('.boton-cerrar-buscador');
 btnNombre.addEventListener('click', (e)=>{
     inputBuscador.value = '';
     tituloBuscador.innerText = 'Buscar por nombre';
-    overlayBuscador.style.visibility = 'visible';
-    overlayBuscador.style.opacity = '1';
     inputBuscador.style.border = 'none';
 
     botonBuscador.addEventListener('click', ()=>{
@@ -99,10 +73,8 @@ btnNombre.addEventListener('click', (e)=>{
                 Rol: ${InfoRequerida.rol}<br>
                 Fecha de registro: ${InfoRequerida.fecha_reg}
                 `
-                overlayBuscador.style.visibility = 'hidden';
-                overlayBuscador.style.opacity = '0';
                 inputBuscador.style.border = 'none';
-                
+                cerrarBuscador.click();
             }else{
                 inputBuscador.style.border = '1px solid red';
                 setInterval(() => {
@@ -125,8 +97,6 @@ btnNombre.addEventListener('click', (e)=>{
 btnCategoria.addEventListener('click', (e)=>{
     inputBuscador.value = '';
     tituloBuscador.innerText = 'Buscar por categoría';
-    overlayBuscador.style.visibility = 'visible';
-    overlayBuscador.style.opacity = '1';
     inputBuscador.style.border = 'none';
 
     botonBuscador.addEventListener('click', ()=>{
@@ -145,10 +115,8 @@ btnCategoria.addEventListener('click', (e)=>{
                     `;
                     resultado.appendChild(InfoPersona);
                 });
-                overlayBuscador.style.visibility = 'hidden';
-                overlayBuscador.style.opacity = '0';
                 inputBuscador.style.border = 'none';
-                
+                cerrarBuscador.click();
             }else{
                 inputBuscador.style.border = '1px solid red';
                 setInterval(() => {
@@ -168,9 +136,7 @@ btnCategoria.addEventListener('click', (e)=>{
 
 //Cerrar busqueda
 cerrarBuscador.addEventListener('click', ()=>{
-    overlayBuscador.style.visibility = 'hidden';
-    overlayBuscador.style.opacity = '0';
-    inputBuscador.value = "";
+
     inputBuscador.style.border = 'none';
 });
 
