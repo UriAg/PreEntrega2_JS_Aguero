@@ -78,6 +78,12 @@ btnNombre.addEventListener('click', (e)=>{
                 `
                 inputBuscador.style.border = 'none';
                 cerrarBuscador.click();
+                setInterval(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 500);
             }else{
                 inputBuscador.style.border = '1px solid red';
                 setInterval(() => {
