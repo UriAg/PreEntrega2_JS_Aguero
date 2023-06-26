@@ -2,12 +2,14 @@ const botonAbrir = document.querySelector('.b-a');
 const botonCerrar = document.querySelector('.cancelar-formulario');
 const botonAgregar = document.querySelector('.completar-formulario');
 const inputNombre = document.querySelector('.input-nombre');
+const inputApellido = document.querySelector('.input-apellido');
 const inputRol = document.querySelector('.input-rol');
 const overlay = document.querySelector('.overlay');
 
 //Abrir formulario
 botonAbrir.addEventListener('click', function(){
     inputNombre.style.border = 'none';
+    inputApellido.style.border = 'none';
     inputRol.style.border = 'none';
 });
 
@@ -15,6 +17,8 @@ botonAbrir.addEventListener('click', function(){
 botonCerrar.addEventListener('click', function(){
     inputNombre.value = "";
     inputNombre.style.border = 'none';
+    inputApellido.value = "";
+    inputApellido.style.border = 'none';
     inputRol.value = "";
     inputRol.style.border = 'none';
 });
@@ -24,10 +28,12 @@ document.addEventListener('keypress', function(e) {
         botonAgregar.click();
     }  
 });
-    
+
+//Accion agregar registro
 botonAgregar.addEventListener('click', (e)=>{
     //Validación de campo
     let Vnom;
+    let Vap;
     let Vrol;
     if(!inputNombre.value){
         inputNombre.style.border = '1px solid red';
@@ -35,7 +41,16 @@ botonAgregar.addEventListener('click', (e)=>{
             inputNombre.style.border = 'none';
         }, 1500);
     }else{
-        Vnom = inputNombre.value
+        Vnom = inputNombre.value;
+    }
+
+    if(!inputApellido.value){
+        inputApellido.style.border = '1px solid red';
+        setInterval(() => {
+            inputApellido.style.border = 'none';
+        }, 1500);
+    }else{
+        Vap = inputApellido.value;
     }
 
     if(!inputRol.value){
@@ -45,30 +60,14 @@ botonAgregar.addEventListener('click', (e)=>{
         }, 1500);
     }else{
         Vrol = inputRol.value
-        if(localStorage.getItem('roles')){
-            if(!JSON.parse(localStorage.getItem('roles')).find((e)=> e.toLowerCase() === Vrol.toLocaleLowerCase())){
-                
-                let roles = JSON.parse(localStorage.getItem('roles'));
-                roles = [...roles, Vrol];
-                localStorage.setItem('roles', JSON.stringify(roles));
-    
-                //Actualizar lista visible
-                containerRoles.innerHTML = '';
-                JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
-                    let InfoPersona = document.createElement('div');
-                    InfoPersona.classList.add('item');
-                    InfoPersona.textContent = rol;
-                    containerRoles.appendChild(InfoPersona);
-                });
-            }
-        }
+        
     }
 
     let today = new Date();
-    if(Vnom && Vrol){
-        if(localStorage.getItem('lista')){
+    if(Vnom && Vap && Vrol){
+        if(localStorage.getItem(localStorage.key(imprimir.value))){
             //Agregar el registro
-            let lista = JSON.parse(localStorage.getItem('lista'));
+            let lista = JSON.parse(localStorage.getItem(localStorage.key(imprimir.value)));
             let cantidadIDs = lista.length;
     
             let day = today.getDate();
@@ -78,11 +77,12 @@ botonAgregar.addEventListener('click', (e)=>{
             let registro = {
                 id: cantidadIDs+1,
                 nombre: Vnom,
+                apellido: Vap,
                 rol: Vrol,
                 fecha_reg: `${day}/${month}/${year}`
             }
             lista = [...lista, registro];
-            localStorage.setItem('lista', JSON.stringify(lista));
+            localStorage.setItem((localStorage.key(imprimir.value)), JSON.stringify(lista));
     
             botonCerrar.click();
     
@@ -105,11 +105,27 @@ botonAgregar.addEventListener('click', (e)=>{
     
             //Actualizar lista visible
             container.innerHTML = '';
-            JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
+            JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).forEach(persona =>{
                 let InfoPersona = document.createElement('div');
                 InfoPersona.classList.add('item');
-                InfoPersona.textContent = persona.nombre;
+                InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
                 container.appendChild(InfoPersona);
+            });
+
+            //Actualizar lista visible
+            containerRoles.innerHTML = '';
+            let rolesArray = [];
+            JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).forEach(item =>{
+                rolesArray.push(item.rol);
+            });
+            const arrayRoles = [...new Set(rolesArray)];
+
+            containerRoles.innerHTML = '';
+            arrayRoles.forEach(persona =>{
+                let InfoPersona = document.createElement('div');
+                InfoPersona.classList.add('item');
+                InfoPersona.textContent = `${persona}`;
+                containerRoles.appendChild(InfoPersona);
             });
         }
     }

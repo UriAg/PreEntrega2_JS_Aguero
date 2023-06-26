@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./index.css">
     <title>Document</title>
 </head>
 <body>
     <main>
+        <!-- Modal para registro -->
         <div class="modal fade modal-add" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -19,7 +21,10 @@
                     </div>
                     <div class="modal-body">
                         <label>
-                            <input type="text" class="input-nombre" placeholder="Nombre completo">
+                            <input type="text" class="input-nombre" placeholder="Nombre">
+                        </label>
+                        <label>
+                            <input type="text" class="input-apellido" placeholder="Apellido">
                         </label>
                         <label>
                             <input type="text" class="input-rol" placeholder="Rol">
@@ -33,6 +38,7 @@
             </div>
         </div>
 
+        <!-- Modal buscador por rol y nombre -->
         <div class="modal fade modal-role" id="roleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -52,12 +58,57 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal create -->
+        <div class="modal fade modal-add" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 login-title" id="exampleModalLabel">Guardar lista actual</h1>
+                        <button type="button" class="btn-close hidden" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>
+                            <input type="text" class="nombre-lista" placeholder="Nombre de lista">
+                        </label>
+                        <button type="button" class="completar-registro">Guardar</button>
+                        <button type="button" class="cancelar-registro" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Registros guardados</h5>
+                <button type="button" class="cerrar-off btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="dropdown mt-3">
+                    <button class="btn btn-secondary  dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Seleccionar lista
+                    </button>
+                    <ul class="dropdown-menu listados"></ul>
+                    <div class="options">
+                        <button type="button" class="imprimir-btn able">Imprimir en pantalla</button>
+                    </div>
+                </div>
+                <div class="listados-personas"></div>
+            </div>
+        </div>
+
         <div class="info">
             <div class="lista">
-                <h1>Listado de personas</h1>
+                <h1>Listado actual de personas</h1>
                 <div class="contenedor-registro">
                     <div class="contenedor-lista-personas">
                         <h2>Nombres</h2>
+                        <h3 class="lista-actual">Lista actual: lista1</h3>
+                        <div class="botones-eliminar">
+                            <button type="button" class="eliminarBots">Eliminar bots</button>
+                            <button type="button" class="eliminarTodos">Eliminar todos</button>
+                        </div>
                         <div class="lista-personas"></div>
                     </div>
                     <div class="contenedor-roles">
@@ -76,11 +127,19 @@
             <button type="button" class="b-n able" data-bs-toggle="modal" data-bs-target="#roleModal">Buscar por nombre</button>
             <button type="button" class="b-c able" data-bs-toggle="modal" data-bs-target="#roleModal">Buscar por rol</button>
             <button type="button" class="b-a able" data-bs-toggle="modal" data-bs-target="#addModal">Agregar registro</button>
+            <button type="button" class="guardado-rapido able">Guardar</button>
+            <button type="button" class="b-i able" data-bs-toggle="modal" data-bs-target="#loginModal">Guardar como</button>
+            <button class="able" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Listas guardadas
+            </button>
         </div>
     </main>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./app/index.js"></script>
     <script src="./app/agregar-registro.js"></script>
+    <script src="./app/addList.js"></script>
+    <script src="./app/renderListas.js"></script>
 </body>
 </html>

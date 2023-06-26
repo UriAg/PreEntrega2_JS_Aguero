@@ -19,6 +19,18 @@ main .modal-add .modal-dialog .modal-content .modal-body{
     background-color: #ebebeb;
 }
 
+main .modal-add .modal-dialog .modal-content .modal-body a{
+    color: rgb(0, 0, 255);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color .2s ease-out;
+}
+
+main .modal-add .modal-dialog .modal-content .modal-body a:hover{
+    color: rgb(93, 150, 100);
+}
+
 main .modal-add .modal-dialog .modal-content .modal-body label input{
     height: 2em;
     padding: .5em;
@@ -30,23 +42,6 @@ main .modal-add .modal-dialog .modal-content .modal-body label input{
 main .modal-add .modal-dialog .modal-content .modal-body label input:first-of-type,
 main .modal-add .modal-dialog .modal-content .modal-body button:first-of-type{
     margin-bottom: .5em;
-}
-
-main .modal-add .modal-dialog .modal-content .modal-body button{
-    width: 10em;
-    height: 2.5em;
-    border-radius: 15px;
-    border: 1px solid #949e8f;
-    outline: none;
-    background-color: #ebebeb;
-    cursor: pointer;
-    transition: all .3s ease;
-}
-
-main .modal-add .modal-dialog .modal-content .modal-body button:hover{
-    border: 1px solid rgb(75, 108, 71);
-    background-color: rgb(101, 136, 96);
-    color: #fff;
 }
 
 main .modal-role .modal-dialog .modal-content .modal-body{
@@ -70,21 +65,48 @@ main .modal-role .modal-dialog .modal-content .modal-body button:first-of-type{
     margin-bottom: .5em;
 }
 
-main .modal-role .modal-dialog .modal-content .modal-body button{
+main .offcanvas .offcanvas-body .dropdown .listados .item-lista{
+    display: flex;
+    align-items: center;
+    height: 2em;
+    padding-left: 0.5em;
+    cursor: pointer;
+    transition: background .3s ease;
+}
+
+main .offcanvas .offcanvas-body .dropdown .listados .item-lista:hover{
+    background-color: #ebebeb;
+}
+
+main .offcanvas .offcanvas-body .dropdown .options .able,
+main .info .lista .contenedor-registro .contenedor-lista-personas .botones-eliminar button,
+main .modal-add .modal-dialog .modal-content .modal-body button,
+main .modal-role .modal-dialog .modal-content .modal-body button,
+main .acciones .able{
     width: 10em;
     height: 2.5em;
     border-radius: 15px;
+    margin-top: .5em;
     border: 1px solid #949e8f;
     outline: none;
-    background-color: #ebebeb;
+    background: none;
     cursor: pointer;
     transition: all .3s ease;
 }
 
-main .modal-role .modal-dialog .modal-content .modal-body button:hover{
+main .offcanvas .offcanvas-body .dropdown .options .able:hover,
+main .info .lista .contenedor-registro .contenedor-lista-personas .botones-eliminar button:hover,
+main .modal-add .modal-dialog .modal-content .modal-body button:hover,
+main .modal-role .modal-dialog .modal-content .modal-body button:hover,
+main .acciones .able:hover{
     border: 1px solid rgb(75, 108, 71);
     background-color: rgb(101, 136, 96);
     color: #fff;
+}
+
+main .offcanvas .offcanvas-body .listados-personas .item{
+    padding: .5em;
+    border-bottom: 1px solid #000;
 }
 
 main .info{
@@ -128,17 +150,6 @@ main .acciones{
     padding: 1.5em;
 }
 
-main .acciones .able{
-    width: 10em;
-    height: 2.5em;
-    border-radius: 15px;
-    border: 1px solid #949e8f;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    transition: all .3s ease;
-}
-
 main .acciones .disabled-btn{
     width: 10em;
     height: 2.5em;
@@ -147,10 +158,4 @@ main .acciones .disabled-btn{
     outline: none;
     background: none;
     cursor: not-allowed;
-}
-
-main .acciones .able:hover{
-    border: 1px solid rgb(75, 108, 71);
-    background-color: rgb(101, 136, 96);
-    color: #fff;
 }

@@ -8,21 +8,28 @@ const btnCategoria = document.querySelector('.b-c');
 fetch('./app/lista.json')
 .then((res)=> res.json())
 .then((data)=>{
-    localStorage.setItem('lista', JSON.stringify(data));
+    localStorage.setItem('lista1', JSON.stringify(data));
 
     //Mostrando personas
-    JSON.parse(localStorage.getItem('lista')).forEach(persona =>{
+    JSON.parse(localStorage.getItem('lista1')).forEach(persona =>{
         let InfoPersona = document.createElement('div');
         InfoPersona.classList.add('item');
-        InfoPersona.textContent = persona.nombre;
+        InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
         container.appendChild(InfoPersona);
     });
 
     //Mostrando roles
-    JSON.parse(localStorage.getItem('roles')).forEach(rol =>{
+    let roles = [];
+    JSON.parse(localStorage.getItem('lista1')).forEach(item =>{
+        roles.push(item.rol);
+    });
+    const arrayRoles = [...new Set(roles)];
+
+    containerRoles.innerHTML = '';
+    arrayRoles.forEach(persona =>{
         let InfoPersona = document.createElement('div');
         InfoPersona.classList.add('item');
-        InfoPersona.textContent = rol;
+        InfoPersona.textContent = `${persona}`;
         containerRoles.appendChild(InfoPersona);
     });
 })
@@ -43,9 +50,6 @@ fetch('./app/lista.json')
     changeStyle(btnCategoria);
 })
 
-const roles = ["Jefe", "Empleado", "Cliente"];
-localStorage.setItem('roles', JSON.stringify(roles));
-
 //Accion de botones
 const resultado = document.querySelector('.resultado')
 const tituloBuscador = document.querySelector('.titulo-buscador');
@@ -61,10 +65,13 @@ btnNombre.addEventListener('click', (e)=>{
 
     botonBuscador.addEventListener('click', ()=>{
         if(inputBuscador.value){
-            let InfoRequerida = JSON.parse(localStorage.getItem('lista')).find((e)=> e.nombre.toLowerCase() === inputBuscador.value.toLocaleLowerCase());
+            let InfoRequerida = JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).find((e)=> e.nombre.toLowerCase() === inputBuscador.value.toLocaleLowerCase()) ? 
+            JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).find((e)=> e.nombre.toLowerCase() === inputBuscador.value.toLocaleLowerCase()) :
+            JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).find((e)=> e.apellido.toLowerCase().includes(inputBuscador.value.toLocaleLowerCase()));
+
             if(InfoRequerida){
                 resultado.innerHTML = `
-                Nombre: <b>${InfoRequerida.nombre}</b><br>
+                Nombre: <b>${InfoRequerida.nombre} ${InfoRequerida.apellido}</b><br>
                 ID: ${InfoRequerida.id}<br>
                 Rol: ${InfoRequerida.rol}<br>
                 Fecha de registro: ${InfoRequerida.fecha_reg}
@@ -97,14 +104,14 @@ btnCategoria.addEventListener('click', (e)=>{
 
     botonBuscador.addEventListener('click', ()=>{
         if(inputBuscador.value){
-            let InfoRequerida2 = JSON.parse(localStorage.getItem('lista')).filter((e)=> e.rol.toLowerCase() === inputBuscador.value.toLocaleLowerCase());
+            let InfoRequerida2 = JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).filter((e)=> e.rol.toLowerCase() === inputBuscador.value.toLocaleLowerCase());
             if(InfoRequerida2.length){
                 resultado.innerHTML = "";
                 InfoRequerida2.map(persona =>{
                     let InfoPersona = document.createElement('div');
                     InfoPersona.classList.add('item-respuesta');
                     InfoPersona.innerHTML = `
-                    Nombre: ${persona.nombre}<br>
+                    Nombre: ${persona.nombre} ${persona.apellido}<br>
                     ID: ${persona.id}<br>
                     Rol: <b>${persona.rol}</b><br>
                     Fecha de registro: ${persona.fecha_reg}
@@ -132,7 +139,6 @@ btnCategoria.addEventListener('click', (e)=>{
 
 //Cerrar busqueda
 cerrarBuscador.addEventListener('click', ()=>{
-
     inputBuscador.style.border = 'none';
 });
 
@@ -140,4 +146,73 @@ document.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         botonBuscador.click();
     }  
+});
+
+//Borrar datos bot
+const eliminarTodos = document.querySelector('.eliminarTodos');
+const eliminarBots = document.querySelector('.eliminarBots');
+
+eliminarBots.addEventListener('click', ()=>{
+
+    let lista = localStorage.getItem('lista1');
+    let listaObjeto = JSON.parse(lista);
+    listaObjeto.splice(0, 8);
+    localStorage.setItem('lista1', JSON.stringify(listaObjeto));
+
+    //Borrar nombres
+    container.innerHTML = '';
+    JSON.parse(localStorage.getItem('lista1')).forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
+        container.appendChild(InfoPersona);
+    });
+
+    ///Borrar roles
+    let roles = [];
+    JSON.parse(localStorage.getItem('lista1')).forEach(item =>{
+        roles.push(item.rol);
+    });
+    const arrayRoles = [...new Set(roles)];
+
+    containerRoles.innerHTML = '';
+    arrayRoles.forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = `${persona}`;
+        containerRoles.appendChild(InfoPersona);
+    });
+});
+
+//Borrar todos los datos
+eliminarTodos.addEventListener('click', ()=>{
+
+    let lista = localStorage.getItem(localStorage.key(imprimir.value));
+    let listaObjeto = JSON.parse(lista);
+    listaObjeto.splice(0, lista.length+1);
+    localStorage.setItem((localStorage.key(imprimir.value)), JSON.stringify(listaObjeto));
+
+    //Borrar nombres
+    container.innerHTML = '';
+    JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
+        container.appendChild(InfoPersona);
+    });
+
+    ///Borrar roles
+    let roles = [];
+    JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).forEach(item =>{
+        roles.push(item.rol);
+    });
+    const arrayRoles = [...new Set(roles)];
+
+    containerRoles.innerHTML = '';
+    arrayRoles.forEach(persona =>{
+        let InfoPersona = document.createElement('div');
+        InfoPersona.classList.add('item');
+        InfoPersona.textContent = `${persona}`;
+        containerRoles.appendChild(InfoPersona);
+    });
 });

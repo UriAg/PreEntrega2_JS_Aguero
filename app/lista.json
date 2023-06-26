@@ -1,10 +1,10 @@
 [
-    { "id": 2, "nombre": "Aitor Tilla", "rol": "Cliente", "fecha_reg": "10/08/2000" },
-    { "id": 8,"nombre": "Alba Sura", "rol": "Cliente", "fecha_reg": "10/08/2000" },
-    { "id": 5, "nombre": "Alex Cremento", "rol": "Empleado", "fecha_reg": "02/05/1995" },
-    { "id": 4, "nombre": "Ana Busado de Hesa", "rol": "Empleado", "fecha_reg": "02/05/1995" },
-    { "id": 3, "nombre": "Andres Trozado", "rol": "Cliente", "fecha_reg": "10/08/2000" },
-    { "id": 6, "nombre": "Armando Bronca Segura", "rol": "Empleado", "fecha_reg": "02/05/1995" },
-    { "id": 7, "nombre": "Dolores Delano", "rol": "Cliente", "fecha_reg": "10/08/2000" },
-    { "id": 1, "nombre": "Elba Surero", "rol": "Jefe", "fecha_reg": "02/05/1995" }
+    { "id": 2, "nombre": "Aitor", "apellido":"Tilla", "rol": "Cliente", "fecha_reg": "10/08/2000" },
+    { "id": 8,"nombre": "Alba", "apellido":"Sura", "rol": "Cliente", "fecha_reg": "10/08/2000" },
+    { "id": 5, "nombre": "Alex", "apellido":"Cremento", "rol": "Empleado", "fecha_reg": "02/05/1995" },
+    { "id": 4, "nombre": "Ana", "apellido":"Busado de Hesa", "rol": "Empleado", "fecha_reg": "02/05/1995" },
+    { "id": 3, "nombre": "Andres", "apellido":"Trozado", "rol": "Cliente", "fecha_reg": "10/08/2000" },
+    { "id": 6, "nombre": "Armando", "apellido":"Bronca Segura", "rol": "Empleado", "fecha_reg": "02/05/1995" },
+    { "id": 7, "nombre": "Dolores", "apellido":"Delano", "rol": "Cliente", "fecha_reg": "10/08/2000" },
+    { "id": 1, "nombre": "Elba", "apellido":"Surero", "rol": "Jefe", "fecha_reg": "02/05/1995" }
 ]
