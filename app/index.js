@@ -13,8 +13,10 @@ fetch('./app/lista.json')
     //Mostrando personas
     JSON.parse(localStorage.getItem('lista1')).forEach(persona =>{
         let InfoPersona = document.createElement('div');
-        InfoPersona.classList.add('item');
-        InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
+        InfoPersona.classList.add('itemm');
+        InfoPersona.innerHTML = `
+            ${persona.nombre} ${persona.apellido}
+        `;
         container.appendChild(InfoPersona);
     });
 
@@ -32,6 +34,7 @@ fetch('./app/lista.json')
         InfoPersona.textContent = `${persona}`;
         containerRoles.appendChild(InfoPersona);
     });
+
 })
 .catch((err)=>{
     container.innerHTML = `
@@ -160,34 +163,45 @@ const eliminarBots = document.querySelector('.eliminarBots');
 
 eliminarBots.addEventListener('click', ()=>{
 
-    let lista = localStorage.getItem('lista1');
-    let listaObjeto = JSON.parse(lista);
-    listaObjeto.splice(0, 8);
-    localStorage.setItem('lista1', JSON.stringify(listaObjeto));
+    if(localStorage.key(imprimir.value) !== "lista1"){
+        Toastify({
+            text: "La lista actual no contiene bots",
+            className: "warning",
+            gravity: "bottom",
+            style:{
+                background: "#c50707"
+            }
+        }).showToast();
+    }else{
+        let lista = localStorage.getItem('lista1');
+        let listaObjeto = JSON.parse(lista);
+        listaObjeto.splice(0, 8);
+        localStorage.setItem('lista1', JSON.stringify(listaObjeto));
 
-    //Borrar nombres
-    container.innerHTML = '';
-    JSON.parse(localStorage.getItem('lista1')).forEach(persona =>{
-        let InfoPersona = document.createElement('div');
-        InfoPersona.classList.add('item');
-        InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
-        container.appendChild(InfoPersona);
-    });
+        //Borrar nombres
+        container.innerHTML = '';
+        JSON.parse(localStorage.getItem('lista1')).forEach(persona =>{
+            let InfoPersona = document.createElement('div');
+            InfoPersona.classList.add('item');
+            InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
+            container.appendChild(InfoPersona);
+        });
 
-    ///Borrar roles
-    let roles = [];
-    JSON.parse(localStorage.getItem('lista1')).forEach(item =>{
-        roles.push(item.rol);
-    });
-    const arrayRoles = [...new Set(roles)];
+        ///Borrar roles
+        let roles = [];
+        JSON.parse(localStorage.getItem('lista1')).forEach(item =>{
+            roles.push(item.rol);
+        });
+        const arrayRoles = [...new Set(roles)];
 
-    containerRoles.innerHTML = '';
-    arrayRoles.forEach(persona =>{
-        let InfoPersona = document.createElement('div');
-        InfoPersona.classList.add('item');
-        InfoPersona.textContent = `${persona}`;
-        containerRoles.appendChild(InfoPersona);
-    });
+        containerRoles.innerHTML = '';
+        arrayRoles.forEach(persona =>{
+            let InfoPersona = document.createElement('div');
+            InfoPersona.classList.add('item');
+            InfoPersona.textContent = `${persona}`;
+            containerRoles.appendChild(InfoPersona);
+        });
+    }
 });
 
 //Borrar todos los datos
@@ -222,3 +236,4 @@ eliminarTodos.addEventListener('click', ()=>{
         containerRoles.appendChild(InfoPersona);
     });
 });
+

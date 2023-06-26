@@ -108,7 +108,9 @@ botonAgregar.addEventListener('click', (e)=>{
             JSON.parse(localStorage.getItem(localStorage.key(imprimir.value))).forEach(persona =>{
                 let InfoPersona = document.createElement('div');
                 InfoPersona.classList.add('item');
-                InfoPersona.textContent = `${persona.nombre} ${persona.apellido}`;
+                InfoPersona.innerHTML = `
+                    ${persona.nombre} ${persona.apellido}
+                `;
                 container.appendChild(InfoPersona);
             });
 
@@ -127,6 +129,8 @@ botonAgregar.addEventListener('click', (e)=>{
                 InfoPersona.textContent = `${persona}`;
                 containerRoles.appendChild(InfoPersona);
             });
+
         }
     }
 });
+
